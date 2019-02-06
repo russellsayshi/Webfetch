@@ -154,7 +154,12 @@ int main(int argc, char** argv) {
 		}
 		name_pos = name_pos & ~(name_bitmask);
 		print_name("    ", response, &name_pos);
-		std::cout << "    QTYPE: " << dblint(&response[ctr]) << std::endl;
+		int qtype = dblint(&response[ctr]);
+		std::cout << "    QTYPE: " << qtype << std::endl;
+		if(qtype != 1) {
+			std::cerr << "Uh oh! This is not an A record. Aborting..." << std::endl;
+			return 7;
+		}
 		ctr += 2;
 		std::cout << "    QCLASS: " << dblint(&response[ctr]) << std::endl;
 		ctr += 2;
